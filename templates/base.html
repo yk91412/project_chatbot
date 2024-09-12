@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinBuddy Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+</head>
+<body class="{{ 'sidebar-visible' if session.get('sidebar_visible') else 'sidebar-hidden' }}">
+    <img src="/static/image/chatbot1.png" alt="Chatbot Background" class="background-image">
+    {% if show_sidebar %}
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="button-container">
+        <button id="newTaskButton" class="new-task-button">+ New Chatbot</button>
+    </div>
+    {% endif %}
+    <div class="sidebar">
+        <div class="sidebar-header">
+            FinBuddy
+        </div>
+        <h3>대화 요약</h3>
+        <ul>
+            {% set summaries_by_date = {} %}
+            {% for summary in summaries %}
+                {% if summary.date not in summaries_by_date %}
+                    {% set _ignore = summaries_by_date.update({summary.date: []}) %}
+                {% endif %}
+                {% set _ignore = summaries_by_date[summary.date].append(summary) %}
+            {% endfor %}
+
+            {% for date, summaries_list in summaries_by_date.items() %}
+                <li class="summary-date">{{ date }}</li>
+                <li>
+                    <ul>
+                        {% for summary in summaries_list %}
+                            <li>
+                                <a href="{{ url_for('show_summary', summary_id=summary.id) }}">{{ summary.summary }}</a>
+                                <button class="delete-history-btn" data-summary-id="{{ summary.id }}">삭제</button>
+                            </li>
+                        
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <nav>
+        <div class="nav-right">
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('logout') }}">로그아웃</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">로그인</a>
+                <a href="{{ url_for('register') }}">회원가입</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+        {% block chat_input %}{% endblock %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

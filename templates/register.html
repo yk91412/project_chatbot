@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" class="login-box">
+    <div class="user-box">
+        <input type="text" name="username" required>
+        <label for="username">사용자 이름</label>
+    </div>
+    <div class="user-box">
+        <input type="email" name="email" required>
+        <label for="email">사용자 이메일</label>
+    </div>
+    <div class="user-box">
+        <input type="password" name="password" required>
+        <label for="password">비밀번호</label>
+    </div>
+    <div class="user-box">
+        <input type="password" name="password_confirm" required>
+        <label for="password_confirm">비밀번호 확인</label>
+    </div>
+    <button type="submit" class="submit-button">회원가입</button>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+</form>
+<!-- 알림 모달 창 -->
+<div id="successModal" class="modal" style="display: {% if success %}block{% else %}none{% endif %};">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>회원가입에 성공했습니다!</p>
+        <button id="redirectToLogin">확인</button>
+    </div>
+</div>
+
+{% endblock %}

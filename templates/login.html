@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" class="login-box">
+    <div class="user-box">
+        <input type="email" name="email" required>
+        <label for="email">이메일</label>
+    </div>
+    <div class="user-box">
+        <input type="password" name="password" required>
+        <label for="password">비밀번호</label>
+    </div>
+    <button type="submit" class="submit-button">로그인</button>
+    <a id="search-password" href="{{ url_for('forgot_password') }}">비밀번호 찾기</a>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+</form>
+{% endblock %}

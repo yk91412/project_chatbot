@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="chat-container">
+        <div class="chat-window">
+            {% set show_date = false %}
+            {% if 'user_id' in session %}
+                {% if chat_history %}
+                    {% for chat in chat_history %}
+                        {% if chat['role'] == 'system' and not show_date %}
+                            <div class="chat-date">{{ chat['message'] }}</div>
+                            {% set show_date = true %}
+                        {% elif chat['role'] == 'user' %}
+                            <div class="chat-message user-message">{{ chat['message'] }}</div>
+                        {% else %}
+                            <div class="chat-message bot-message">{{ chat['message']|safe }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {% for chat in chat_history %}
+                    {% if chat['role'] == 'user' %}
+                        <div class="chat-message user-message">{{ chat['message'] }}</div>
+                    {% else %}
+                        <div class="chat-message bot-message">{{ chat['message']|safe }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block chat_input %}
+<div class="chat-input-container">
+    <form method="POST" action="/" class="chat-input-form">
+        <input type="text" name="message" placeholder="메시지를 입력하세요..." required>
+        <button type="submit">Send</button>
+    </form>
+</div>
+{% endblock %}
