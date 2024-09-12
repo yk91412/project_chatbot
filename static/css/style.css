@@ -1,0 +1,541 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
+
+.background-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30%; /* 원하는 크기로 조절 */
+    height: auto; /* 비율에 맞춰 높이 자동 조절 */
+    transform: translate(-50%, -50%); /* 이미지를 가운데로 위치 */
+    opacity: 0.3; /* 배경 이미지 투명도 조절 */
+    z-index: -1; /* 배경 이미지가 콘텐츠 뒤에 위치하도록 설정 */
+    object-fit: contain; /* 이미지 비율 유지하면서 크기 조절 */
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    width: 200px; /* 웹에서 사이드바의 너비 */
+    height: 100%;
+    background-color: #9ac4e9;
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999; /* 사이드바가 네비게이션바보다 위에 위치하도록 설정 */
+}
+
+.sidebar-visible .sidebar {
+    transform: translateX(0);
+}
+
+.sidebar-toggle {
+    position: fixed;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000;
+    display: block;
+    background-color: transparent;
+    border: none;
+}
+
+
+.sidebar-visible .sidebar-toggle {
+    display: block;
+    left: 5px;
+    top: 10px;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.sidebar-hidden .sidebar-toggle {
+    display: block; /* 항상 보이도록 설정 */
+    background-color: #007bff;
+    left: 20px;
+    top: 20px;
+    border-radius: 50%;
+}
+
+
+/* 사이드바가 닫혔을 때 뒷배경을 표시 */
+.sidebar-hidden .main-content {
+    margin-left: 0;
+}
+
+/* 사이드바가 열렸을 때 콘텐츠의 좌측 여백을 조절 */
+.sidebar-visible .main-content {
+    margin-left: 200px;
+    transition: margin-left 0.3s ease;
+}
+
+
+.sidebar-header {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.sidebar h3 {
+    text-align: center;
+}
+
+/* 사이드바 요약 한 줄로 표시 */
+.sidebar ul li {
+    color: #fff;
+    white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 ... 추가 */
+}
+
+/* 기본 요약 색상 */
+.sidebar ul li a {
+    color: #fff1a6; /* 파란색 */
+    text-decoration: none; /* 밑줄 제거 */
+    transition: color 0.3s ease; /* 색상 변경 애니메이션 */
+    text-align: left;
+    padding: 8px;
+    display: block;
+}
+
+/* 요약 항목에 마우스를 올렸을 때 색상 변경 */
+.sidebar ul li a:hover {
+    color: #0056b3; /* 어두운 파란색 */
+}
+
+/* 클릭된 요약 항목 색상 변경 */
+.sidebar ul li a:active {
+    color: #6f42c1; /* 보라색 */
+}
+
+/* 요약 날짜 색상 (파란색 강조와 대비되는 색상) */
+.summary-date {
+    color: #333; /* 어두운 회색 */
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+
+
+/* 내비게이션 스타일 */
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: #f4f4f4;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+.nav-right a{
+    color: #6f42c1;
+}
+
+.nav-right a:hover{
+    color: #fff1a6;
+}
+
+/* 컨테이너 및 채팅 스타일 */
+.container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.container h1 {
+    margin-top: 30px;
+    margin-left:10px;
+}
+
+
+/* 기본 채팅창 스타일 */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.chat-window {
+    flex: 1;
+    display: flex;
+    overflow-y: auto;
+    padding: 15px;
+    margin-bottom: 60px;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: calc(100vh - 110px);
+    font-size:20px;
+}
+
+.chat-message {
+    padding: 8px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    display: inline-block;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: rgb(178, 204, 216);
+    text-align: right;
+    margin-left: auto;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #e0e0e0;
+    text-align: left;
+    margin-right: auto;
+}
+
+
+/* 채팅 입력창 스타일 */
+.chat-input-container {
+    margin-top: 10px;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.chat-input-form {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transition: width 0.3s ease;
+}
+
+.chat-input-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.chat-input-form button {
+    padding: 10px 15px;
+    border: 1px solid #007bff;
+    background: #007bff;
+    color: #fff;
+    border-radius: 25px;
+    cursor: pointer;
+    outline: none;
+}
+
+.chat-input-form button:hover {
+    background: #0056b3;
+}
+
+/* .chat-message와 .bot-message 클래스가 적용된 div 내부의 모든 button 요소에 스타일 적용 */
+.chat-message.bot-message button {
+    color: white;                /* 글자색 */
+    padding: 10px 20px;          /* 여백 */
+    border: none;                /* 테두리 제거 */
+    border-radius: 5px;          /* 모서리 둥글게 */
+    cursor: pointer;             /* 커서 모양 변경 */
+    font-size: 16px;             /* 글자 크기 */
+    margin-bottom: 10px;         /* 버튼 간 간격 */
+}
+
+
+/* 버튼에 마우스를 올렸을 때 스타일 변경 */
+.chat-message.bot-message button:hover {
+    background-color: #45a049;  /* hover 시 배경색 */
+}
+
+
+
+/* 로그인 박스 스타일 */
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+}
+
+.login-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+}
+
+.login-box .user-box {
+    position: relative;
+}
+
+.login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.login-box .user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+}
+
+.login-box .submit-button,
+#search-password {
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.login-box .submit-button:hover,
+#search-password:hover {
+    background: rgba(3, 233, 244, 0.1);
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form input,
+.auth-form button {
+    display: none;
+}
+
+.date-header {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* 반투명 배경 */
+}
+
+.modal-content {
+    background-color: rgba(254, 254, 254, 0.685);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    max-width: 380px;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#redirectToLogin {
+    background-color: #007bff; /* 초록색 배경 */
+    color: #ffffff; /* 텍스트 색상 흰색 */
+    border: none; /* 기본 테두리 제거 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    padding: 10px 20px; /* 안쪽 여백 */
+    font-size: 16px; /* 텍스트 크기 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+    transition: background-color 0.3s, box-shadow 0.3s; /* 부드러운 효과 */
+    margin-top:20px;
+}
+
+#redirectToLogin:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 삭제 버튼 스타일 */
+button.delete-history-btn {
+    background-color: #ff3c00;  /* 버튼 배경 색상 */
+    color: white;  /* 텍스트 색상 */
+    border: none;  /* 테두리 제거 */
+    border-radius: 5px;  /* 모서리를 둥글게 */
+    padding: 10px 15px;  /* 내부 여백 */
+    font-size: 14px;  /* 폰트 크기 */
+    cursor: pointer;  /* 커서를 포인터로 변경 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* 그림자 효과 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;  /* 전환 효과 */
+    margin-bottom: 10px;
+}
+
+button.delete-history-btn:hover {
+    background-color: #c0392b;  /* 마우스 오버 시 배경 색상 */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);  /* 마우스 오버 시 그림자 효과 */
+}
+
+button.delete-history-btn:active {
+    background-color: #a93226;  /* 클릭 시 배경 색상 */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);  /* 클릭 시 그림자 효과 */
+    transform: translateY(2px);  /* 클릭 시 버튼 눌린 것처럼 보이기 */
+}
+
+button.new-task-button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 200px; /* 버튼이 왼쪽에서부터 200px 만큼 떨어져 위치 */
+    position: relative; /* 위치 조정에 필요 */
+    top: 40px; /* 위쪽에서부터 40px 만큼 떨어져 위치 */
+}
+
+/* 사이드바 링크의 툴팁 스타일 조정 */
+.sidebar ul li a {
+    position: relative;
+}
+
+.sidebar ul li a::after {
+    content: attr(title); /* 툴팁의 내용은 링크의 title 속성 */
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8); /* 툴팁의 배경색 */
+    color: #fff; /* 툴팁의 글자색 */
+    padding: 5px 10px; /* 툴팁 내부 여백 */
+    border-radius: 5px; /* 툴팁 모서리 둥글게 */
+    white-space: normal; /* 텍스트를 여러 줄로 표시 */
+    top: 50%; /* 툴팁이 링크 중앙에 나타나도록 */
+    left: 105%; /* 툴팁이 링크 오른쪽에 나타나도록 */
+    transform: translateY(-50%); /* 툴팁 수직 중앙 정렬 */
+    z-index: 10;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+    opacity: 0; /* 초기 툴팁 투명하게 설정 */
+    transition: opacity 0.3s; /* 투명도 변화 애니메이션 */
+    pointer-events: none; /* 툴팁이 마우스 이벤트에 반응하지 않도록 */
+    max-width: 300px; /* 툴팁 최대 너비 설정 */
+    overflow: visible; /* 툴팁 내용이 잘리지 않도록 */
+    font-size: 16px;
+}
+
+.sidebar ul li a:hover::after {
+    opacity: 1; /* 마우스 오버 시 툴팁 표시 */
+}
+
+
+
+/* 웹에서 사이드바 및 채팅창 레이아웃 조정 */
+/* 로그아웃 상태에서 입력창 스타일 조정 */
+@media (min-width: 769px) {
+    .chat-input-form {
+        left: 0; /* 사이드바가 없을 때 좌측 여백 없음 */
+        width: 100%;
+    }
+}
+
+/* 모바일에서 사이드바와 채팅창 레이아웃 조정 */
+@media (max-width: 200px) {
+    .sidebar {
+        width: 80%; /* 모바일에서 사이드바 너비 */
+        height: auto;
+        position: fixed;
+        transform: translateX(-100%);
+        z-index: 999;
+    }
+
+    .sidebar-visible .sidebar {
+        transform: translateX(0);
+    }
+
+    .container {
+        margin-left: 0; /* 사이드바의 너비를 고려하지 않음 */
+        width: 100%; /* 모바일에서 전체 너비 사용 */
+    }
+
+    .chat-input-form {
+        left: 0; /* 모바일에서는 좌측 여백 없음 */
+        width: 100%; /* 모바일에서 전체 너비 사용 */
+    }
+}
